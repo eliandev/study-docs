@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estructuras Contables Empresariales</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 35px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .icon {
+            font-size: 3em;
+            margin-right: 20px;
+        }
+
+        .section-title {
+            flex: 1;
+        }
+
+        .section-title h2 {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .section-title .subtitle {
+            color: #7f8c8d;
+            font-size: 0.95em;
+        }
+
+        .subsection {
+            margin: 25px 0;
+        }
+
+        .subsection h3 {
+            color: #2c3e50;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .subsection h3:before {
+            content: "▸";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .subsection ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .subsection li {
+            padding: 10px 0 10px 30px;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .subsection li:before {
+            content: "•";
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: 10px;
+        }
+
+        .comparison-table {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            margin-top: 50px;
+            overflow-x: auto;
+        }
+
+        .comparison-table h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 18px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        th {
+            font-weight: 600;
+            font-size: 1em;
+        }
+
+        tbody tr {
+            transition: background 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        tbody td:first-child {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 20px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .section {
+                padding: 25px 20px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th,
+            td {
+                padding: 12px 8px;
+            }
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box strong {
+            color: #667eea;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Estructuras Contables Empresariales</h1>
+            <p>Guía completa para entender cómo se organiza la contabilidad según el tamaño y alcance de tu negocio
+                comercial</p>
+        </header>
+
+        <div class="content">
+            <div class="section">
+                <div class="section-header">
+                    <div class="icon">🏪</div>
+                    <div class="section-title">
+                        <h2>1. Empresa Comercial Local</h2>
+                        <p class="subtitle">Una sola tienda o punto central</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Ejemplo:</strong> Una tienda física en San Salvador que también vende en línea y por
+                    WhatsApp, pero toda la operación se centraliza en el mismo negocio.
+                </div>
+
+                <div class="subsection">
+                    <h3>Estructura contable</h3>
+                    <ul>
+                        <li>Un solo registro contable y un solo libro diario</li>
+                        <li>Se manejan una sola contabilidad y una única cuenta bancaria o pocas</li>
+                        <li><strong>Inventario:</strong> controlado en un solo almacén o bodega</li>
+                        <li><strong>Ventas multicanal:</strong> aunque haya ventas en línea, todas se registran en la
+                            misma contabilidad (solo cambia el canal de venta, no la contabilidad)</li>
+                        <li>Catálogo de cuentas simplificado, orientado a una sola unidad económica</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Implicaciones contables</h3>
+                    <ul>
+                        <li>Los registros se hacen de manera centralizada</li>
+                        <li>No hay consolidación de estados financieros, solo se genera un Balance General y Estado de
+                            Resultados de toda la operación</li>
+                        <li>Se puede usar un sistema básico como QuickBooks, Contifico, Alegra o un ERP pequeño</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Reportes comunes</h3>
+                    <ul>
+                        <li>Ventas por canal (físico, online, otros)</li>
+                        <li>Costo de ventas, utilidad bruta</li>
+                        <li>Gastos operativos y margen neto</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <div class="icon">🏬</div>
+                    <div class="section-title">
+                        <h2>2. Empresa Comercial Corporativa</h2>
+                        <p class="subtitle">Multitienda nacional + ecommerce fuerte</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Ejemplo:</strong> Una cadena de tiendas en todo El Salvador (por ejemplo, Simán o
+                    Curacao) con ecommerce, bodegas y oficinas corporativas.
+                </div>
+
+                <div class="subsection">
+                    <h3>Estructura contable</h3>
+                    <ul>
+                        <li>Cada tienda física es considerada una unidad de negocio o centro de costos</li>
+                        <li>El departamento de contabilidad corporativa consolida la información de todas las tiendas
+                        </li>
+                        <li>El ecommerce se maneja como una unidad o canal adicional con su propia contabilidad
+                            analítica</li>
+                        <li>Cuentas por pagar, cobrar, inventarios, ventas, gastos se reportan por tienda o canal</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Implicaciones contables</h3>
+                    <ul>
+                        <li>Cada tienda puede registrar sus operaciones diarias, pero la contabilidad oficial se
+                            centraliza en el corporativo</li>
+                        <li>Se requiere un ERP contable (SAP, Odoo, Netsuite, Dynamics) que permita manejar múltiples
+                            sedes</li>
+                        <li>El corporativo elabora estados financieros consolidados, sumando las operaciones de todas
+                            las unidades</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Reportes comunes</h3>
+                    <ul>
+                        <li>Estados financieros por tienda y consolidado</li>
+                        <li>Margen de rentabilidad por canal</li>
+                        <li>Control de inventario por ubicación</li>
+                        <li>Gastos administrativos vs. operativos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <div class="icon">🌎</div>
+                    <div class="section-title">
+                        <h2>3. Empresa Comercial Multinacional</h2>
+                        <p class="subtitle">Presencia regional o global</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Ejemplo:</strong> Un grupo comercial con tiendas en varios países de Centroamérica, con
+                    presencia en ecommerce regional (por ejemplo, PriceSmart, Walmart, o una cadena salvadoreña
+                    expandida a Guatemala y Honduras).
+                </div>
+
+                <div class="subsection">
+                    <h3>Estructura contable</h3>
+                    <ul>
+                        <li>Cada país opera su contabilidad local, cumpliendo con sus leyes tributarias, moneda y
+                            normativas</li>
+                        <li>El corporativo regional lleva una contabilidad consolidada, normalmente en una moneda base
+                            (USD)</li>
+                        <li>Se manejan diferencias cambiarias, consolidaciones y eliminaciones intercompañía</li>
+                        <li>Se usa un sistema contable multiempresa y multimoneda</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Implicaciones contables</h3>
+                    <ul>
+                        <li>Se preparan estados financieros individuales por país, y luego un estado financiero
+                            consolidado regional o global</li>
+                        <li>Se aplican Normas Internacionales de Información Financiera (NIIF o IFRS)</li>
+                        <li>Existen transferencias internas entre filiales (importaciones, préstamos, servicios
+                            compartidos) que deben eliminarse al consolidar</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Reportes comunes</h3>
+                    <ul>
+                        <li>Estados financieros por país y consolidados</li>
+                        <li>Reporte de diferencias cambiarias y ajustes de conversión</li>
+                        <li>Eliminación de operaciones intercompañía</li>
+                        <li>Reporte por moneda y tipo de cambio</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="comparison-table">
+                <h2>📊 Comparación General</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th>Tienda Única</th>
+                            <th>Corporativo Nacional</th>
+                            <th>Corporativo Regional</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Número de contabilidades</td>
+                            <td>1</td>
+                            <td>Varias (una por tienda/unidad)</td>
+                            <td>Varias por país</td>
+                        </tr>
+                        <tr>
+                            <td>Moneda</td>
+                            <td>Única (local)</td>
+                            <td>Única (local)</td>
+                            <td>Múltiples</td>
+                        </tr>
+                        <tr>
+                            <td>Sistema contable</td>
+                            <td>Simple (QuickBooks, Alegra)</td>
+                            <td>ERP multi-sucursal (SAP, Odoo, Netsuite)</td>
+                            <td>ERP multiempresa y multimoneda</td>
+                        </tr>
+                        <tr>
+                            <td>Consolidación</td>
+                            <td>No aplica</td>
+                            <td>Consolidación nacional</td>
+                            <td>Consolidación regional</td>
+                        </tr>
+                        <tr>
+                            <td>Control de inventarios</td>
+                            <td>Central</td>
+                            <td>Por tienda o canal</td>
+                            <td>Por país y canal</td>
+                        </tr>
+                        <tr>
+                            <td>Reportes</td>
+                            <td>General</td>
+                            <td>Por tienda y canal</td>
+                            <td>Por país y moneda</td>
+                        </tr>
+                        <tr>
+                            <td>Cumplimiento fiscal</td>
+                            <td>Local</td>
+                            <td>Local consolidado</td>
+                            <td>Por jurisdicción</td>
+                        </tr>
+                        <tr>
+                            <td>Normas contables</td>
+                            <td>Locales</td>
+                            <td>Locales + políticas corporativas</td>
+                            <td>NIIF/IFRS + locales</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
