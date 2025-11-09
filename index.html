@@ -95,6 +95,101 @@
             font-size: 0.95em;
         }
 
+        /* Diagrama de estructura */
+        .diagram {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #e0e0e0;
+        }
+
+        .diagram-title {
+            text-align: center;
+            font-size: 1.2em;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .node {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 200px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            position: relative;
+            font-weight: 500;
+        }
+
+        .node-local {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .node-corporativo {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .node-regional {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .node-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            margin-top: 5px;
+            margin-right: 5px;
+        }
+
+        .level {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+        }
+
+        .connector {
+            width: 2px;
+            height: 20px;
+            background: #667eea;
+            margin: 0 auto;
+        }
+
+        .connector-horizontal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .connector-line {
+            height: 2px;
+            flex: 1;
+            background: #667eea;
+            max-width: 100px;
+        }
+
+        .grid-diagram {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
         .subsection {
             margin: 25px 0;
         }
@@ -211,6 +306,11 @@
                 margin-bottom: 15px;
             }
 
+            .node {
+                min-width: 150px;
+                font-size: 0.9em;
+            }
+
             table {
                 font-size: 0.9em;
             }
@@ -231,6 +331,30 @@
 
         .highlight-box strong {
             color: #667eea;
+        }
+
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #667eea;
+            margin: 0 auto;
+        }
+
+        .copyright {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+            background: #ecf0f1;
+            border-top: 1px solid #bdc3c7;
+            border-radius: 20px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
         }
     </style>
 </head>
@@ -256,6 +380,58 @@
                 <div class="highlight-box">
                     <strong>Ejemplo:</strong> Una tienda física en San Salvador que también vende en línea y por
                     WhatsApp, pero toda la operación se centraliza en el mismo negocio.
+                </div>
+
+                <div class="diagram">
+                    <div class="diagram-title">📐 Estructura Organizacional</div>
+                    <div class="org-chart">
+                        <div class="node node-local">
+                            🏢 EMPRESA LOCAL
+                            <div>
+                                <span class="node-tag">Única Contabilidad</span>
+                                <span class="node-tag">Un Libro Diario</span>
+                            </div>
+                        </div>
+
+                        <div class="connector"></div>
+                        <div class="arrow-down"></div>
+
+                        <div class="level">
+                            <div class="node node-local" style="font-size: 0.9em;">
+                                🏪 Tienda Física
+                                <div><span class="node-tag">Ventas Presenciales</span></div>
+                            </div>
+                            <div class="node node-local" style="font-size: 0.9em;">
+                                💻 Ventas Online
+                                <div><span class="node-tag">E-commerce</span></div>
+                            </div>
+                            <div class="node node-local" style="font-size: 0.9em;">
+                                📱 WhatsApp
+                                <div><span class="node-tag">Ventas Digitales</span></div>
+                            </div>
+                        </div>
+
+                        <div class="connector"></div>
+                        <div class="arrow-down"></div>
+
+                        <div class="node node-local">
+                            📦 BODEGA ÚNICA
+                            <div>
+                                <span class="node-tag">Inventario Centralizado</span>
+                            </div>
+                        </div>
+
+                        <div class="connector"></div>
+                        <div class="arrow-down"></div>
+
+                        <div class="node node-local">
+                            💰 REGISTRO CONTABLE ÚNICO
+                            <div>
+                                <span class="node-tag">Balance General</span>
+                                <span class="node-tag">Estado de Resultados</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="subsection">
@@ -301,7 +477,68 @@
 
                 <div class="highlight-box">
                     <strong>Ejemplo:</strong> Una cadena de tiendas en todo El Salvador (por ejemplo, Simán o
-                    Curacao) con ecommerce, bodegas y oficinas corporativas.
+                    Dollarcity) con ecommerce, bodegas y oficinas corporativas.
+                </div>
+
+                <div class="diagram">
+                    <div class="diagram-title">📐 Estructura Organizacional</div>
+                    <div class="org-chart">
+                        <div class="node node-corporativo">
+                            🏢 CORPORATIVO NACIONAL
+                            <div>
+                                <span class="node-tag">Consolidación Central</span>
+                                <span class="node-tag">ERP Multi-sucursal</span>
+                            </div>
+                        </div>
+
+                        <div class="connector"></div>
+                        <div class="arrow-down"></div>
+
+                        <div class="grid-diagram">
+                            <div class="node node-corporativo" style="font-size: 0.85em;">
+                                🏪 Tienda San Salvador
+                                <div><span class="node-tag">Centro de Costos 001</span></div>
+                            </div>
+                            <div class="node node-corporativo" style="font-size: 0.85em;">
+                                🏪 Tienda Santa Ana
+                                <div><span class="node-tag">Centro de Costos 002</span></div>
+                            </div>
+                            <div class="node node-corporativo" style="font-size: 0.85em;">
+                                🏪 Tienda San Miguel
+                                <div><span class="node-tag">Centro de Costos 003</span></div>
+                            </div>
+                            <div class="node node-corporativo" style="font-size: 0.85em;">
+                                💻 E-commerce
+                                <div><span class="node-tag">Unidad Digital</span></div>
+                            </div>
+                        </div>
+
+                        <div style="margin: 15px 0; text-align: center; color: #667eea; font-weight: 600;">
+                            Cada unidad reporta sus operaciones diarias ↓
+                        </div>
+
+                        <div class="level">
+                            <div class="node node-corporativo" style="font-size: 0.9em;">
+                                📦 Bodega Regional Norte
+                                <div><span class="node-tag">Inventario Multi-tienda</span></div>
+                            </div>
+                            <div class="node node-corporativo" style="font-size: 0.9em;">
+                                📦 Bodega Regional Sur
+                                <div><span class="node-tag">Inventario Multi-tienda</span></div>
+                            </div>
+                        </div>
+
+                        <div class="connector"></div>
+                        <div class="arrow-down"></div>
+
+                        <div class="node node-corporativo">
+                            💰 CONSOLIDACIÓN CONTABLE
+                            <div>
+                                <span class="node-tag">Estados Financieros por Tienda</span>
+                                <span class="node-tag">Consolidado Nacional</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="subsection">
@@ -352,6 +589,99 @@
                     <strong>Ejemplo:</strong> Un grupo comercial con tiendas en varios países de Centroamérica, con
                     presencia en ecommerce regional (por ejemplo, PriceSmart, Walmart, o una cadena salvadoreña
                     expandida a Guatemala y Honduras).
+                </div>
+
+                <div class="diagram">
+                    <div class="diagram-title">📐 Estructura Organizacional</div>
+                    <div class="org-chart">
+                        <div class="node node-regional">
+                            🌐 CORPORATIVO REGIONAL
+                            <div>
+                                <span class="node-tag">Consolidación USD</span>
+                                <span class="node-tag">NIIF/IFRS</span>
+                                <span class="node-tag">Multi-moneda</span>
+                            </div>
+                        </div>
+
+                        <div class="connector"></div>
+                        <div class="arrow-down"></div>
+
+                        <div class="level">
+                            <div class="node node-regional" style="font-size: 0.9em;">
+                                🇸🇻 EL SALVADOR
+                                <div>
+                                    <span class="node-tag">Contabilidad Local USD</span>
+                                    <span class="node-tag">Normativa SV</span>
+                                </div>
+                            </div>
+                            <div class="node node-regional" style="font-size: 0.9em;">
+                                🇬🇹 GUATEMALA
+                                <div>
+                                    <span class="node-tag">Contabilidad Local GTQ</span>
+                                    <span class="node-tag">Normativa GT</span>
+                                </div>
+                            </div>
+                            <div class="node node-regional" style="font-size: 0.9em;">
+                                🇭🇳 HONDURAS
+                                <div>
+                                    <span class="node-tag">Contabilidad Local HNL</span>
+                                    <span class="node-tag">Normativa HN</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            style="margin: 15px 0; text-align: center; color: #667eea; font-weight: 600; font-size: 0.9em;">
+                            Cada país con múltiples tiendas y canales ↓
+                        </div>
+
+                        <div class="grid-diagram">
+                            <div class="node node-regional" style="font-size: 0.8em; min-width: 140px;">
+                                🏪 Tienda SV-001
+                            </div>
+                            <div class="node node-regional" style="font-size: 0.8em; min-width: 140px;">
+                                🏪 Tienda SV-002
+                            </div>
+                            <div class="node node-regional" style="font-size: 0.8em; min-width: 140px;">
+                                🏪 Tienda GT-001
+                            </div>
+                            <div class="node node-regional" style="font-size: 0.8em; min-width: 140px;">
+                                🏪 Tienda GT-002
+                            </div>
+                            <div class="node node-regional" style="font-size: 0.8em; min-width: 140px;">
+                                🏪 Tienda HN-001
+                            </div>
+                            <div class="node node-regional" style="font-size: 0.8em; min-width: 140px;">
+                                💻 E-commerce Regional
+                            </div>
+                        </div>
+
+                        <div class="connector"></div>
+                        <div class="arrow-down"></div>
+
+                        <div class="level">
+                            <div class="node node-regional" style="font-size: 0.85em;">
+                                💱 Diferencias Cambiarias
+                                <div><span class="node-tag">USD, GTQ, HNL</span></div>
+                            </div>
+                            <div class="node node-regional" style="font-size: 0.85em;">
+                                🔄 Eliminaciones Intercompañía
+                                <div><span class="node-tag">Transferencias Internas</span></div>
+                            </div>
+                        </div>
+
+                        <div class="connector"></div>
+                        <div class="arrow-down"></div>
+
+                        <div class="node node-regional">
+                            💰 CONSOLIDACIÓN REGIONAL
+                            <div>
+                                <span class="node-tag">Por País</span>
+                                <span class="node-tag">Por Moneda</span>
+                                <span class="node-tag">Consolidado Regional USD</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="subsection">
@@ -454,10 +784,10 @@
         </div>
     </div>
 
-    <div>
-        By <a href="https://www.linkedin.com/in/tu-perfil-linkedin" target="_blank">ElianDev</a>
+    <div class="copyright">
+        <p>Copyright © 2025</p>
+        By <a href="https://www.linkedin.com/in/eliandev/" target="_blank">ElianDev</a>
     </div>
-
 </body>
 
 </html>
