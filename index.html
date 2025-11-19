@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estructuras Contables Empresariales</title>
+    <title>Ciclo Contable - Almacenes Nuvora</title>
     <style>
         * {
             margin: 0;
@@ -14,909 +14,850 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #2c3e50;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffffff;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .slides-container {
+            width: 100vw;
             min-height: 100vh;
-            padding: 20px;
+            overflow: auto;
+            position: relative;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .slide {
+            width: 100vw;
+            height: auto;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 60px;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
         }
 
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 40px;
-            text-align: center;
+        .slide1 {
+            height: 100vh;
         }
 
-        header h1 {
-            font-size: 2.8em;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        header p {
-            font-size: 1.2em;
-            opacity: 0.95;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .content {
-            padding: 50px 40px;
-        }
-
-        .section {
-            margin-bottom: 50px;
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 35px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #667eea;
-        }
-
-        .icon {
-            font-size: 3em;
-            margin-right: 20px;
-        }
-
-        .section-title {
-            flex: 1;
-        }
-
-        .section-title h2 {
-            font-size: 1.8em;
-            color: #667eea;
-            margin-bottom: 5px;
-        }
-
-        .section-title .subtitle {
-            color: #7f8c8d;
-            font-size: 0.95em;
-        }
-
-        /* Diagrama de estructura */
-        .diagram {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            margin: 30px 0;
-            border: 2px solid #e0e0e0;
-        }
-
-        .diagram-title {
-            text-align: center;
-            font-size: 1.2em;
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 25px;
-        }
-
-        .org-chart {
+        .slide.active {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            justify-content: center;
+            animation: slideIn 0.6s ease-out;
         }
 
-        .node {
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Slide de portada */
+        .slide-portada {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
             text-align: center;
-            min-width: 200px;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-            position: relative;
-            font-weight: 500;
-        }
-
-        .node-local {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-        }
-
-        .node-corporativo {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        .node-regional {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        .node-tag {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.3);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.75em;
-            margin-top: 5px;
-            margin-right: 5px;
-        }
-
-        .level {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-            position: relative;
-        }
-
-        .connector {
-            width: 2px;
-            height: 20px;
-            background: #667eea;
-            margin: 0 auto;
-        }
-
-        .connector-horizontal {
-            display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            margin: 10px 0;
         }
 
-        .connector-line {
-            height: 2px;
-            flex: 1;
-            background: #667eea;
-            max-width: 100px;
+        .slide-portada h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .grid-diagram {
+        .slide-portada .subtitle {
+            font-size: 1.8em;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .slide-portada .company-info {
+            font-size: 1.3em;
+            margin-top: 30px;
+            opacity: 0.9;
+        }
+
+        /* Slide empresa */
+        .slide-empresa {
+            background: linear-gradient(to bottom right, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .slide-title {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 40px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .empresa-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card .icon {
+            font-size: 1.8em;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .info-value {
+            color: #333;
+        }
+
+        /* Slide MVV */
+        .mvv-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .mvv-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-left: 6px solid #667eea;
+        }
+
+        .mvv-card h3 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
             gap: 15px;
+        }
+
+        .mvv-card p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
             margin-top: 20px;
         }
 
-        .subsection {
-            margin: 25px 0;
-        }
-
-        .subsection h3 {
-            color: #2c3e50;
-            font-size: 1.3em;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .subsection h3:before {
-            content: "▸";
-            color: #667eea;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        .subsection ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .subsection li {
-            padding: 10px 0 10px 30px;
-            position: relative;
-            line-height: 1.7;
-        }
-
-        .subsection li:before {
-            content: "•";
-            color: #667eea;
-            font-weight: bold;
-            position: absolute;
-            left: 10px;
-        }
-
-        .comparison-table {
-            background: white;
-            border-radius: 15px;
-            padding: 35px;
-            margin-top: 50px;
-            overflow-x: auto;
-        }
-
-        .comparison-table h2 {
-            color: #667eea;
-            font-size: 2em;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-        }
-
-        thead {
+        .valor-item {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-        }
-
-        th,
-        td {
-            padding: 18px;
-            text-align: left;
-            border-bottom: 1px solid #ecf0f1;
-        }
-
-        th {
-            font-weight: 600;
-            font-size: 1em;
-        }
-
-        tbody tr {
-            transition: background 0.3s ease;
-        }
-
-        tbody tr:hover {
-            background: #f8f9fa;
-        }
-
-        tbody td:first-child {
-            font-weight: 600;
-            color: #667eea;
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: 40px 20px;
-            }
-
-            header h1 {
-                font-size: 2em;
-            }
-
-            .content {
-                padding: 30px 20px;
-            }
-
-            .section {
-                padding: 25px 20px;
-            }
-
-            .section-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .icon {
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-
-            .node {
-                min-width: 150px;
-                font-size: 0.9em;
-            }
-
-            table {
-                font-size: 0.9em;
-            }
-
-            th,
-            td {
-                padding: 12px 8px;
-            }
-        }
-
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            border-left: 4px solid #667eea;
             padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-        }
-
-        .highlight-box strong {
-            color: #667eea;
-        }
-
-        .intro-section {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-            border-radius: 15px;
-            padding: 40px;
-            margin-bottom: 50px;
-            border: 2px solid rgba(102, 126, 234, 0.2);
-        }
-
-        .intro-section h2 {
-            color: #667eea;
-            font-size: 2.2em;
-            margin-bottom: 25px;
-            line-height: 1.3;
-        }
-
-        .intro-text {
-            font-size: 1.1em;
-            line-height: 1.8;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-
-        .intro-text strong {
-            color: #667eea;
+            border-radius: 12px;
+            text-align: center;
             font-weight: 600;
         }
 
-        .intro-highlight {
+        /* Slide leyes */
+        .leyes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .ley-card {
             background: white;
-            border-radius: 12px;
             padding: 25px;
-            margin: 30px 0;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
-            display: flex;
-            gap: 20px;
-            align-items: start;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #667eea;
         }
 
-        .intro-icon {
-            font-size: 3em;
-            flex-shrink: 0;
-        }
-
-        .intro-highlight h3 {
-            color: #2c3e50;
+        .ley-card h4 {
+            color: #667eea;
             font-size: 1.3em;
             margin-bottom: 10px;
         }
 
-        .intro-highlight p {
+        .ley-card p {
             color: #555;
-            line-height: 1.7;
-        }
-
-        .intro-cta {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px 30px;
-            border-radius: 10px;
-            margin-top: 30px;
-            text-align: center;
-            font-size: 1.1em;
             line-height: 1.6;
         }
 
-        @media (max-width: 768px) {
-            .intro-section {
-                padding: 25px 20px;
-            }
-
-            .intro-section h2 {
-                font-size: 1.6em;
-            }
-
-            .intro-text {
-                font-size: 1em;
-            }
-
-            .intro-highlight {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .intro-icon {
-                margin: 0 auto;
-            }
+        /* Slide estructuras */
+        .estructura-visual {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
         }
 
-        .arrow-down {
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 15px solid #667eea;
-            margin: 0 auto;
+        .estructura-tipo {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
         }
 
-        .copyright {
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
+        .estructura-tipo h4 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        /* Slide ciclo contable */
+        .ciclo-intro {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .ciclo-intro h3 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .ciclo-intro p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .fases-ciclo {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .fase {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 15px;
+            border-radius: 12px;
             text-align: center;
-            padding: 15px;
+            position: relative;
+        }
+
+        .fase p {
+            color: white;
+        }
+
+        .fase-numero {
+            font-size: 2.5em;
+            font-weight: 700;
+            opacity: 0.3;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+        }
+
+        .fase h4 {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .fase p {
             font-size: 0.9em;
-            color: #7f8c8d;
-            background: #ecf0f1;
-            border-top: 1px solid #bdc3c7;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Slide conclusión */
+        .conclusion-content {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .conclusion-content h3 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        .conclusion-content p {
+            font-size: 1.3em;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .conclusion-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+
+        /* Navegación */
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(102, 126, 234, 0.9);
+            color: white;
+            padding: 10px 20px;
             border-radius: 20px;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
+            font-weight: 600;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px;
+            }
+
+            .slide-portada h1 {
+                font-size: 2.5em;
+            }
+
+            .slide-title {
+                font-size: 2em;
+            }
+
+            .empresa-grid,
+            .leyes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fases-ciclo {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .valores-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sucursales-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .sucursal-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .sucursal-card h4 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .sucursal-card .icon {
+            font-size: 3em;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <h1>📊 Estructuras Contables Empresariales</h1>
-            <p>Guía completa para entender cómo se organiza la contabilidad según el tamaño y alcance de tu negocio
-                comercial</p>
-        </header>
+    <div class="slide-counter">
+        <span id="currentSlide">1</span> / <span id="totalSlides">9</span>
+    </div>
 
-        <div class="content">
-            <div class="intro-section">
-                <h2>¿Por qué una tienda local y Walmart no llevan la misma contabilidad?</h2>
-                <p class="intro-text">
-                    Imagina que tienes una pequeña tienda en tu barrio. Llevas tu contabilidad en un cuaderno o en
-                    Excel, sabes exactamente cuánto vendes cada día, cuánto tienes en inventario y cuánto debes pagar a
-                    tus proveedores. <strong>Simple, ¿verdad?</strong>
-                </p>
-                <p class="intro-text">
-                    Ahora imagina que tu negocio crece. Abres una segunda tienda en otra ciudad, luego una tercera,
-                    después lanzas ventas en línea, y de repente tienes bodegas en diferentes lugares. Ya no puedes
-                    llevar todo en un solo cuaderno. <strong>Necesitas un sistema que consolide información de múltiples
-                        lugares, compare rentabilidad por tienda, y te diga si tu bodega del norte está vendiendo más
-                        que la del sur.</strong>
-                </p>
-                <p class="intro-text">
-                    Y si das el salto internacional, abres operaciones en Guatemala y Honduras, la cosa se complica aún
-                    más: ahora manejas diferentes monedas, distintas leyes fiscales en cada país, transferencias de
-                    mercancía entre fronteras, y necesitas reportes que cumplan con estándares internacionales para
-                    inversionistas o bancos.
-                </p>
-                <div class="intro-highlight">
-                    <div class="intro-icon">💡</div>
-                    <div>
-                        <h3>La estructura contable de tu empresa no es un lujo, es una necesidad</h3>
-                        <p>No se trata de "tener más cuentas o más papeles". Se trata de <strong>tomar decisiones
-                                informadas</strong>: ¿Qué tienda es más rentable? ¿Dónde está atascado mi inventario?
-                            ¿Cómo están mis márgenes por canal de venta? ¿Vale la pena expandirme a otro país?</p>
-                    </div>
-                </div>
-                <p class="intro-text">
-                    <strong>En esta guía descubrirás cómo se estructura la contabilidad en tres escenarios
-                        reales:</strong> desde el negocio local que opera en un solo lugar, pasando por la cadena
-                    nacional con múltiples sucursales, hasta la corporación multinacional con presencia en varios
-                    países. Cada una tiene desafíos únicos, herramientas diferentes, y reportes que responden a
-                    preguntas distintas.
-                </p>
-                <p class="intro-cta">
-                    👇 <strong>Sigue leyendo para entender exactamente cómo se organiza la contabilidad en cada nivel y
-                        qué necesitas para llevar la tuya de manera profesional.</strong>
-                </p>
+    <div class="slides-container">
+        <!-- Slide 1: Portada -->
+        <div class="slide slide-portada active slide1">
+            <div class="icon" style="font-size: 5em; margin-bottom: 20px;">🏢</div>
+            <h1>Ciclo Contable</h1>
+            <p class="subtitle">Aplicado a Empresa Comercial</p>
+            <div class="company-info">
+                <strong>Almacenes Nuvora S.A. de C.V.</strong>
             </div>
-            <div class="section">
-                <div class="section-header">
-                    <div class="icon">🏪</div>
-                    <div class="section-title">
-                        <h2>1. Empresa Comercial Local</h2>
-                        <p class="subtitle">Una sola tienda o punto central</p>
+        </div>
+
+        <!-- Slide 2: Presentación de la empresa -->
+        <div class="slide slide-empresa">
+            <h2 class="slide-title">🏢 Almacenes Nuvora S.A. de C.V.</h2>
+            <div class="empresa-grid">
+                <div class="info-card">
+                    <h3><span class="icon">📊</span> Información General</h3>
+                    <div class="info-row">
+                        <span class="info-label">Nombre Comercial:</span>
+                        <span class="info-value">Almacenes Nuvora S.A. de C.V.</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Rubro:</span>
+                        <span class="info-value">Comercial</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Capital Inicial:</span>
+                        <span class="info-value">$270,000</span>
                     </div>
                 </div>
 
-                <div class="highlight-box">
-                    <strong>Ejemplo:</strong> Una tienda física en San Salvador que también vende en línea y por
-                    WhatsApp, pero toda la operación se centraliza en el mismo negocio.
-                </div>
-
-                <div class="diagram">
-                    <div class="diagram-title">📐 Estructura Organizacional</div>
-                    <div class="org-chart">
-                        <div class="node node-local">
-                            🏢 EMPRESA LOCAL
-                            <div>
-                                <span class="node-tag">Única Contabilidad</span>
-                                <span class="node-tag">Un Libro Diario</span>
-                            </div>
-                        </div>
-
-                        <div class="connector"></div>
-                        <div class="arrow-down"></div>
-
-                        <div class="level">
-                            <div class="node node-local" style="font-size: 0.9em;">
-                                🏪 Tienda Física
-                                <div><span class="node-tag">Ventas Presenciales</span></div>
-                            </div>
-                            <div class="node node-local" style="font-size: 0.9em;">
-                                💻 Ventas Online
-                                <div><span class="node-tag">E-commerce</span></div>
-                            </div>
-                            <div class="node node-local" style="font-size: 0.9em;">
-                                📱 WhatsApp
-                                <div><span class="node-tag">Ventas Digitales</span></div>
-                            </div>
-                        </div>
-
-                        <div class="connector"></div>
-                        <div class="arrow-down"></div>
-
-                        <div class="node node-local">
-                            📦 BODEGA ÚNICA
-                            <div>
-                                <span class="node-tag">Inventario Centralizado</span>
-                            </div>
-                        </div>
-
-                        <div class="connector"></div>
-                        <div class="arrow-down"></div>
-
-                        <div class="node node-local">
-                            💰 REGISTRO CONTABLE ÚNICO
-                            <div>
-                                <span class="node-tag">Balance General</span>
-                                <span class="node-tag">Estado de Resultados</span>
-                            </div>
-                        </div>
+                <div class="info-card">
+                    <h3><span class="icon">👥</span> Recursos Humanos</h3>
+                    <div class="info-row">
+                        <span class="info-label">Empleados:</span>
+                        <span class="info-value">18-20 colaboradores</span>
                     </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Estructura contable</h3>
-                    <ul>
-                        <li>Un solo registro contable y un solo libro diario</li>
-                        <li>Se manejan una sola contabilidad y una única cuenta bancaria o pocas</li>
-                        <li><strong>Inventario:</strong> controlado en un solo almacén o bodega</li>
-                        <li><strong>Ventas multicanal:</strong> aunque haya ventas en línea, todas se registran en la
-                            misma contabilidad (solo cambia el canal de venta, no la contabilidad)</li>
-                        <li>Catálogo de cuentas simplificado, orientado a una sola unidad económica</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Implicaciones contables</h3>
-                    <ul>
-                        <li>Los registros se hacen de manera centralizada</li>
-                        <li>No hay consolidación de estados financieros, solo se genera un Balance General y Estado de
-                            Resultados de toda la operación</li>
-                        <li>Se puede usar un sistema básico como QuickBooks, Contifico, Alegra o un ERP pequeño</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Reportes comunes</h3>
-                    <ul>
-                        <li>Ventas por canal (físico, online, otros)</li>
-                        <li>Costo de ventas, utilidad bruta</li>
-                        <li>Gastos operativos y margen neto</li>
-                    </ul>
+                    <div class="info-row">
+                        <span class="info-label">Clientes Objetivo:</span>
+                        <span class="info-value">Jóvenes y adultos (18-45 años)</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Proveedores:</span>
+                        <span class="info-value">Nacionales e Internacionales</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="section">
-                <div class="section-header">
-                    <div class="icon">🏬</div>
-                    <div class="section-title">
-                        <h2>2. Empresa Comercial Corporativa</h2>
-                        <p class="subtitle">Multitienda nacional + ecommerce fuerte</p>
-                    </div>
+            <div class="sucursales-container">
+                <div class="sucursal-card">
+                    <div class="icon">📍</div>
+                    <h4>Sucursal Centro</h4>
+                    <p>San Salvador – Zona Rosa/Escalón</p>
+                    <small>(Sede Principal)</small>
                 </div>
-
-                <div class="highlight-box">
-                    <strong>Ejemplo:</strong> Una cadena de tiendas en todo El Salvador (por ejemplo, Simán o
-                    Dollarcity) con ecommerce, bodegas y oficinas corporativas.
+                <div class="sucursal-card">
+                    <div class="icon">📍</div>
+                    <h4>Sucursal Occidente</h4>
+                    <p>Santa Ana</p>
                 </div>
-
-                <div class="diagram">
-                    <div class="diagram-title">📐 Estructura Organizacional</div>
-                    <div class="org-chart">
-                        <div class="node node-corporativo">
-                            🏢 CORPORATIVO NACIONAL
-                            <div>
-                                <span class="node-tag">Consolidación Central</span>
-                                <span class="node-tag">ERP Multi-sucursal</span>
-                            </div>
-                        </div>
-
-                        <div class="connector"></div>
-                        <div class="arrow-down"></div>
-
-                        <div class="grid-diagram">
-                            <div class="node node-corporativo" style="font-size: 0.85em;">
-                                🏪 Tienda San Salvador
-                                <div><span class="node-tag">Centro de Costos 001</span></div>
-                            </div>
-                            <div class="node node-corporativo" style="font-size: 0.85em;">
-                                🏪 Tienda Santa Ana
-                                <div><span class="node-tag">Centro de Costos 002</span></div>
-                            </div>
-                            <div class="node node-corporativo" style="font-size: 0.85em;">
-                                🏪 Tienda San Miguel
-                                <div><span class="node-tag">Centro de Costos 003</span></div>
-                            </div>
-                            <div class="node node-corporativo" style="font-size: 0.85em;">
-                                💻 E-commerce
-                                <div><span class="node-tag">Unidad Digital</span></div>
-                            </div>
-                        </div>
-
-                        <div style="margin: 15px 0; text-align: center; color: #667eea; font-weight: 600;">
-                            Cada unidad reporta sus operaciones diarias ↓
-                        </div>
-
-                        <div class="level">
-                            <div class="node node-corporativo" style="font-size: 0.9em;">
-                                📦 Bodega Regional Norte
-                                <div><span class="node-tag">Inventario Multi-tienda</span></div>
-                            </div>
-                            <div class="node node-corporativo" style="font-size: 0.9em;">
-                                📦 Bodega Regional Sur
-                                <div><span class="node-tag">Inventario Multi-tienda</span></div>
-                            </div>
-                        </div>
-
-                        <div class="connector"></div>
-                        <div class="arrow-down"></div>
-
-                        <div class="node node-corporativo">
-                            💰 CONSOLIDACIÓN CONTABLE
-                            <div>
-                                <span class="node-tag">Estados Financieros por Tienda</span>
-                                <span class="node-tag">Consolidado Nacional</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Estructura contable</h3>
-                    <ul>
-                        <li>Cada tienda física es considerada una unidad de negocio o centro de costos</li>
-                        <li>El departamento de contabilidad corporativa consolida la información de todas las tiendas
-                        </li>
-                        <li>El ecommerce se maneja como una unidad o canal adicional con su propia contabilidad
-                            analítica</li>
-                        <li>Cuentas por pagar, cobrar, inventarios, ventas, gastos se reportan por tienda o canal</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Implicaciones contables</h3>
-                    <ul>
-                        <li>Cada tienda puede registrar sus operaciones diarias, pero la contabilidad oficial se
-                            centraliza en el corporativo</li>
-                        <li>Se requiere un ERP contable (SAP, Odoo, Netsuite, Dynamics) que permita manejar múltiples
-                            sedes</li>
-                        <li>El corporativo elabora estados financieros consolidados, sumando las operaciones de todas
-                            las unidades</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Reportes comunes</h3>
-                    <ul>
-                        <li>Estados financieros por tienda y consolidado</li>
-                        <li>Margen de rentabilidad por canal</li>
-                        <li>Control de inventario por ubicación</li>
-                        <li>Gastos administrativos vs. operativos</li>
-                    </ul>
+                <div class="sucursal-card">
+                    <div class="icon">📍</div>
+                    <h4>Sucursal Oriente</h4>
+                    <p>San Miguel</p>
                 </div>
             </div>
+        </div>
 
-            <div class="section">
-                <div class="section-header">
-                    <div class="icon">🌎</div>
-                    <div class="section-title">
-                        <h2>3. Empresa Comercial Multinacional</h2>
-                        <p class="subtitle">Presencia regional o global</p>
+        <!-- Slide 3: Misión, Visión y Valores -->
+        <div class="slide">
+            <h2 class="slide-title">🎯 Misión, Visión y Valores</h2>
+            <div class="mvv-container">
+                <div class="mvv-card">
+                    <h3>🎯 Misión</h3>
+                    <p>Proveer productos de calidad a nuestros clientes en todo El Salvador, ofreciendo experiencias de
+                        compra excepcionales que superen sus expectativas, mediante un equipo comprometido y procesos
+                        eficientes que generen valor sostenible.</p>
+                </div>
+
+                <div class="mvv-card">
+                    <h3>🔭 Visión</h3>
+                    <p>Ser la cadena comercial líder en El Salvador para el año 2030, reconocida por nuestra excelencia
+                        en servicio al cliente, innovación en procesos y compromiso con el desarrollo económico y social
+                        de las comunidades donde operamos.</p>
+                </div>
+
+                <div class="mvv-card">
+                    <h3>💎 Valores</h3>
+                    <div class="valores-grid">
+                        <div class="valor-item">✓ Integridad</div>
+                        <div class="valor-item">✓ Excelencia</div>
+                        <div class="valor-item">✓ Innovación</div>
+                        <div class="valor-item">✓ Compromiso</div>
+                        <div class="valor-item">✓ Responsabilidad Social</div>
+                        <div class="valor-item">✓ Trabajo en Equipo</div>
                     </div>
-                </div>
-
-                <div class="highlight-box">
-                    <strong>Ejemplo:</strong> Un grupo comercial con tiendas en varios países de Centroamérica, con
-                    presencia en ecommerce regional (por ejemplo, PriceSmart, Walmart, o una cadena salvadoreña
-                    expandida a Guatemala y Honduras).
-                </div>
-
-                <div class="diagram">
-                    <div class="diagram-title">📐 Estructura Organizacional</div>
-                    <div class="org-chart">
-                        <div class="node node-regional">
-                            🌐 CORPORATIVO REGIONAL
-                            <div>
-                                <span class="node-tag">Consolidación USD</span>
-                                <span class="node-tag">NIIF/IFRS</span>
-                                <span class="node-tag">Multi-moneda</span>
-                            </div>
-                        </div>
-
-                        <div class="connector"></div>
-                        <div class="arrow-down"></div>
-
-                        <div class="level">
-                            <div class="node node-regional" style="font-size: 0.9em;">
-                                🇸🇻 EL SALVADOR
-                                <div>
-                                    <span class="node-tag">Contabilidad Local USD</span>
-                                    <span class="node-tag">Normativa SV</span>
-                                </div>
-                            </div>
-                            <div class="node node-regional" style="font-size: 0.9em;">
-                                🇬🇹 GUATEMALA
-                                <div>
-                                    <span class="node-tag">Contabilidad Local GTQ</span>
-                                    <span class="node-tag">Normativa GT</span>
-                                </div>
-                            </div>
-                            <div class="node node-regional" style="font-size: 0.9em;">
-                                🇭🇳 HONDURAS
-                                <div>
-                                    <span class="node-tag">Contabilidad Local HNL</span>
-                                    <span class="node-tag">Normativa HN</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            style="margin: 15px 0; text-align: center; color: #667eea; font-weight: 600; font-size: 0.9em;">
-                            Cada país con múltiples tiendas y canales ↓
-                        </div>
-
-                        <div class="grid-diagram">
-                            <div class="node node-regional" style="font-size: 0.8em; min-width: 140px;">
-                                🏪 Tienda SV-001
-                            </div>
-                            <div class="node node-regional" style="font-size: 0.8em; min-width: 140px;">
-                                🏪 Tienda SV-002
-                            </div>
-                            <div class="node node-regional" style="font-size: 0.8em; min-width: 140px;">
-                                🏪 Tienda GT-001
-                            </div>
-                            <div class="node node-regional" style="font-size: 0.8em; min-width: 140px;">
-                                🏪 Tienda GT-002
-                            </div>
-                            <div class="node node-regional" style="font-size: 0.8em; min-width: 140px;">
-                                🏪 Tienda HN-001
-                            </div>
-                            <div class="node node-regional" style="font-size: 0.8em; min-width: 140px;">
-                                💻 E-commerce Regional
-                            </div>
-                        </div>
-
-                        <div class="connector"></div>
-                        <div class="arrow-down"></div>
-
-                        <div class="level">
-                            <div class="node node-regional" style="font-size: 0.85em;">
-                                💱 Diferencias Cambiarias
-                                <div><span class="node-tag">USD, GTQ, HNL</span></div>
-                            </div>
-                            <div class="node node-regional" style="font-size: 0.85em;">
-                                🔄 Eliminaciones Intercompañía
-                                <div><span class="node-tag">Transferencias Internas</span></div>
-                            </div>
-                        </div>
-
-                        <div class="connector"></div>
-                        <div class="arrow-down"></div>
-
-                        <div class="node node-regional">
-                            💰 CONSOLIDACIÓN REGIONAL
-                            <div>
-                                <span class="node-tag">Por País</span>
-                                <span class="node-tag">Por Moneda</span>
-                                <span class="node-tag">Consolidado Regional USD</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Estructura contable</h3>
-                    <ul>
-                        <li>Cada país opera su contabilidad local, cumpliendo con sus leyes tributarias, moneda y
-                            normativas</li>
-                        <li>El corporativo regional lleva una contabilidad consolidada, normalmente en una moneda base
-                            (USD)</li>
-                        <li>Se manejan diferencias cambiarias, consolidaciones y eliminaciones intercompañía</li>
-                        <li>Se usa un sistema contable multiempresa y multimoneda</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Implicaciones contables</h3>
-                    <ul>
-                        <li>Se preparan estados financieros individuales por país, y luego un estado financiero
-                            consolidado regional o global</li>
-                        <li>Se aplican Normas Internacionales de Información Financiera (NIIF o IFRS)</li>
-                        <li>Existen transferencias internas entre filiales (importaciones, préstamos, servicios
-                            compartidos) que deben eliminarse al consolidar</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Reportes comunes</h3>
-                    <ul>
-                        <li>Estados financieros por país y consolidados</li>
-                        <li>Reporte de diferencias cambiarias y ajustes de conversión</li>
-                        <li>Eliminación de operaciones intercompañía</li>
-                        <li>Reporte por moneda y tipo de cambio</li>
-                    </ul>
                 </div>
             </div>
+        </div>
 
-            <div class="comparison-table">
-                <h2>📊 Comparación General</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Aspecto</th>
-                            <th>Tienda Única</th>
-                            <th>Corporativo Nacional</th>
-                            <th>Corporativo Regional</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Número de contabilidades</td>
-                            <td>1</td>
-                            <td>Varias (una por tienda/unidad)</td>
-                            <td>Varias por país</td>
-                        </tr>
-                        <tr>
-                            <td>Moneda</td>
-                            <td>Única (local)</td>
-                            <td>Única (local)</td>
-                            <td>Múltiples</td>
-                        </tr>
-                        <tr>
-                            <td>Sistema contable</td>
-                            <td>Simple (QuickBooks, Alegra)</td>
-                            <td>ERP multi-sucursal (SAP, Odoo, Netsuite)</td>
-                            <td>ERP multiempresa y multimoneda</td>
-                        </tr>
-                        <tr>
-                            <td>Consolidación</td>
-                            <td>No aplica</td>
-                            <td>Consolidación nacional</td>
-                            <td>Consolidación regional</td>
-                        </tr>
-                        <tr>
-                            <td>Control de inventarios</td>
-                            <td>Central</td>
-                            <td>Por tienda o canal</td>
-                            <td>Por país y canal</td>
-                        </tr>
-                        <tr>
-                            <td>Reportes</td>
-                            <td>General</td>
-                            <td>Por tienda y canal</td>
-                            <td>Por país y moneda</td>
-                        </tr>
-                        <tr>
-                            <td>Cumplimiento fiscal</td>
-                            <td>Local</td>
-                            <td>Local consolidado</td>
-                            <td>Por jurisdicción</td>
-                        </tr>
-                        <tr>
-                            <td>Normas contables</td>
-                            <td>Locales</td>
-                            <td>Locales + políticas corporativas</td>
-                            <td>NIIF/IFRS + locales</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- Slide 4: Marco Legal -->
+        <div class="slide">
+            <h2 class="slide-title">⚖️ Marco Legal del Rubro Comercial</h2>
+            <div class="leyes-grid">
+                <div class="ley-card">
+                    <h4>📋 Código de Comercio</h4>
+                    <p>Regula las operaciones mercantiles, obligaciones de comerciantes, contratos comerciales y la
+                        organización de sociedades mercantiles en El Salvador.</p>
+                </div>
+
+                <div class="ley-card">
+                    <h4>💰 Código Tributario</h4>
+                    <p>Establece las obligaciones fiscales, incluyendo IVA (13%), ISR, retenciones, presentación de
+                        declaraciones y cumplimiento ante el Ministerio de Hacienda.</p>
+                </div>
+
+                <div class="ley-card">
+                    <h4>📊 Ley de Contabilidad</h4>
+                    <p>Norma los registros contables, libros legales obligatorios, estados financieros y requisitos para
+                        el ejercicio profesional de la contaduría pública.</p>
+                </div>
+
+                <div class="ley-card">
+                    <h4>👥 Código de Trabajo</h4>
+                    <p>Regula las relaciones laborales, derechos y obligaciones de empleadores y trabajadores, salarios,
+                        prestaciones, seguridad social y condiciones laborales.</p>
+                </div>
+
+                <div class="ley-card">
+                    <h4>🛡️ Ley de Protección al Consumidor</h4>
+                    <p>Protege los derechos de consumidores, establece obligaciones de información, garantías, precios
+                        justos y mecanismos de resolución de conflictos.</p>
+                </div>
+
+                <div class="ley-card">
+                    <h4>🏛️ Ley de Registro de Comercio</h4>
+                    <p>Establece la obligatoriedad de inscripción de comerciantes y sociedades, matrículas de
+                        establecimiento y publicidad de actos mercantiles.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Estructuras Contables - Intro -->
+        <div class="slide">
+            <h2 class="slide-title">🏗️ Estructuras Contables Empresariales</h2>
+            <div class="ciclo-intro">
+                <h3>¿Por qué es importante la estructura contable?</h3>
+                <p>La estructura contable de una empresa determina cómo se organizan, registran y consolidan las
+                    operaciones financieras. No es lo mismo manejar la contabilidad de una tienda local que la de una
+                    cadena nacional o multinacional.</p>
+                <p><strong>Almacenes Nuvora</strong> opera bajo una <strong>estructura corporativa nacional</strong> con
+                    múltiples sucursales, lo que requiere:</p>
+
+                <div class="estructura-visual">
+                    <div class="estructura-tipo">
+                        <h4>📊 Contabilidad por Centro de Costos</h4>
+                        <p>Cada sucursal (Centro, Occidente, Oriente) funciona como un centro de costos independiente
+                            que reporta al corporativo.</p>
+                    </div>
+
+                    <div class="estructura-tipo">
+                        <h4>🔄 Consolidación de Estados Financieros</h4>
+                        <p>Las operaciones de todas las sucursales se consolidan en un solo reporte financiero
+                            corporativo.</p>
+                    </div>
+
+                    <div class="estructura-tipo">
+                        <h4>💻 Sistema ERP Integrado</h4>
+                        <p>Se requiere un sistema contable que permita registrar, controlar y reportar operaciones de
+                            múltiples ubicaciones de manera centralizada.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Nuestro Modelo Contable -->
+        <div class="slide">
+            <h2 class="slide-title">📐 Modelo Contable de Almacenes Nuvora</h2>
+            <div class="estructura-visual" style="margin-top: 0;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div
+                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 12px; display: inline-block; margin-bottom: 20px;">
+                        <div style="font-size: 2em; margin-bottom: 10px;">🏢</div>
+                        <h3>CORPORATIVO NUVORA</h3>
+                        <p style="margin: 0; opacity: 0.9;">Contabilidad Consolidada</p>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 30px 0;">
+                    <div
+                        style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center; border-top: 4px solid #667eea;">
+                        <div style="font-size: 2.5em; margin-bottom: 10px;">🏪</div>
+                        <h4 style="color: #667eea; margin-bottom: 10px;">Sucursal Centro</h4>
+                        <p style="color: #666; font-size: 0.9em;">Centro de Costos 001</p>
+                        <p style="color: #666; font-size: 0.9em;">San Salvador</p>
+                    </div>
+
+                    <div
+                        style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center; border-top: 4px solid #667eea;">
+                        <div style="font-size: 2.5em; margin-bottom: 10px;">🏪</div>
+                        <h4 style="color: #667eea; margin-bottom: 10px;">Sucursal Occidente</h4>
+                        <p style="color: #666; font-size: 0.9em;">Centro de Costos 002</p>
+                        <p style="color: #666; font-size: 0.9em;">Santa Ana</p>
+                    </div>
+
+                    <div
+                        style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center; border-top: 4px solid #667eea;">
+                        <div style="font-size: 2.5em; margin-bottom: 10px;">🏪</div>
+                        <h4 style="color: #667eea; margin-bottom: 10px;">Sucursal Oriente</h4>
+                        <p style="color: #666; font-size: 0.9em;">Centro de Costos 003</p>
+                        <p style="color: #666; font-size: 0.9em;">San Miguel</p>
+                    </div>
+                </div>
+
+                <div
+                    style="background: white; padding: 25px; border-radius: 12px; border: 2px solid #667eea; margin-top: 20px;">
+                    <h4 style="color: #667eea; margin-bottom: 15px; text-align: center;">📊 Características del Sistema
+                    </h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div style="padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            ✓ Inventario por ubicación
+                        </div>
+                        <div style="padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            ✓ Ventas por sucursal
+                        </div>
+                        <div style="padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            ✓ Gastos operativos por centro
+                        </div>
+                        <div style="padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            ✓ Reportes consolidados
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: El Ciclo Contable -->
+        <div class="slide">
+            <h2 class="slide-title">♻️ El Ciclo Contable</h2>
+            <div class="ciclo-intro">
+                <h3>¿Qué es el Ciclo Contable?</h3>
+                <p>Es el proceso sistemático y ordenado que sigue toda empresa para registrar, clasificar, analizar y
+                    reportar sus operaciones financieras durante un período contable específico.</p>
+                <p><strong>Objetivo:</strong> Garantizar que toda transacción económica se registre correctamente y
+                    generar información financiera confiable para la toma de decisiones.</p>
+
+                <h3 style="margin-top: 30px; color: #667eea;">Fases del Ciclo Contable</h3>
+                <div class="fases-ciclo">
+                    <div class="fase">
+                        <span class="fase-numero">1</span>
+                        <h4>Apertura</h4>
+                        <p>Balance inicial y registro de saldos</p>
+                    </div>
+                    <div class="fase">
+                        <span class="fase-numero">2</span>
+                        <h4>Movimiento</h4>
+                        <p>Registro de transacciones diarias</p>
+                    </div>
+                    <div class="fase">
+                        <span class="fase-numero">3</span>
+                        <h4>Ajustes</h4>
+                        <p>Correcciones y conciliaciones</p>
+                    </div>
+                    <div class="fase">
+                        <span class="fase-numero">4</span>
+                        <h4>Cierre</h4>
+                        <p>Estados financieros finales</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Demostración en Excel -->
+        <div class="slide">
+            <h2 class="slide-title">📊 Aplicación Práctica</h2>
+            <div class="ciclo-intro">
+                <h3>Ciclo Contable Completo de Almacenes Nuvora</h3>
+                <p style="font-size: 1.4em; text-align: center; margin: 40px 0; color: #667eea; font-weight: 600;">
+                    A continuación se presenta la demostración en Excel con todos los registros contables realizados
+                    durante el período fiscal.
+                </p>
+
+                <div
+                    style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 30px; border-radius: 12px; margin-top: 30px;">
+                    <h4 style="color: #667eea; font-size: 1.5em; margin-bottom: 20px;">El Excel incluye:</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="padding: 20px; background: white; border-radius: 10px;">
+                            <strong style="color: #667eea;">✓ Ajustes Contables</strong>
+                            <p style="margin-top: 10px; color: #666;">Depreciaciones, provisiones y correcciones</p>
+                        </div>
+                        <div style="padding: 20px; background: white; border-radius: 10px;">
+                            <strong style="color: #667eea;">✓ Estados Financieros</strong>
+                            <p style="margin-top: 10px; color: #666;">Balance General y Estado de Resultados</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    style="text-align: center; margin-top: 40px; padding: 25px; background: white; border-radius: 12px; border: 3px solid #667eea;">
+                    <div style="font-size: 3em; margin-bottom: 15px;">📁</div>
+                    <p style="font-size: 1.3em; color: #667eea; font-weight: 600;">
+                        <a href="https://docs.google.com/spreadsheets/d/1tJ3c9WdoQ-zCeOmL-BlI-dTQbLSYTKoEowrYjPeGVIY/edit?gid=0#gid=0"
+                            target="_blank" rel="noopener noreferrer" onclick="changeSlide(9)">
+                            Archivo Excel del Ciclo Contable
+                        </a>
+                    </p>
+                    <p style="color: #666; margin-top: 10px;">
+                        Demostración práctica del ciclo contable completo
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Conclusiones -->
+        <div class="slide" style="background: linear-gradient(to bottom right, #f8f9fa 0%, #e9ecef 100%);">
+            <h2 class="slide-title">🎯 Conclusiones</h2>
+            <div class="conclusion-content">
+                <h3>Importancia del Ciclo Contable</h3>
+
+                <p style="text-align: left; margin-top: 30px;">
+                    <strong style="color: #667eea;">1. Orden y Control:</strong> El ciclo contable proporciona un marco
+                    estructurado que garantiza el registro sistemático de todas las operaciones financieras de la
+                    empresa, facilitando el control interno y la detección de irregularidades.
+                </p>
+
+                <p style="text-align: left;">
+                    <strong style="color: #667eea;">2. Información para la Toma de Decisiones:</strong> Los estados
+                    financieros generados al final del ciclo son herramientas fundamentales para que la gerencia pueda
+                    evaluar la situación económica de Almacenes Nuvora y tomar decisiones estratégicas informadas.
+                </p>
+
+                <p style="text-align: left;">
+                    <strong style="color: #667eea;">3. Cumplimiento Legal:</strong> El correcto desarrollo del ciclo
+                    contable asegura que la empresa cumpla con todas las obligaciones fiscales y legales establecidas en
+                    el marco regulatorio salvadoreño.
+                </p>
+
+                <p style="text-align: left;">
+                    <strong style="color: #667eea;">4. Transparencia Financiera:</strong> Para una empresa con múltiples
+                    sucursales como Nuvora, el ciclo contable permite consolidar información de diferentes centros de
+                    costos, brindando una visión integral del desempeño corporativo.
+                </p>
+
+                <div class="conclusion-highlight">
+                    <strong style="font-size: 1.3em; display: block; margin-bottom: 15px;">💡 Reflexión Final</strong>
+                    La contabilidad no es solo "llenar papeles" o cumplir requisitos legales. Es una herramienta
+                    estratégica que permite a Almacenes Nuvora conocer su realidad financiera, medir su rentabilidad por
+                    sucursal, controlar costos y gastos, y planificar su crecimiento futuro de manera sostenible.
+                    <br><br>
+                    Un ciclo contable bien ejecutado es la base para una gestión empresarial exitosa y profesional.
+                </div>
+
+                <div style="margin-top: 40px; font-size: 2em; color: #667eea;">
+                    ¡Gracias por su atención! 🙏
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="copyright">
-        <p>Copyright © 2025</p>
-        By <a href="https://www.linkedin.com/in/eliandev/" target="_blank">ElianDev</a>
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
     </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+
+            if (n >= totalSlides) {
+                currentSlide = totalSlides - 1;
+            } else if (n < 0) {
+                currentSlide = 0;
+            } else {
+                currentSlide = n;
+            }
+
+            slides[currentSlide].classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+
+            // Actualizar botones
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Navegación con teclado
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight' || event.key === ' ') {
+                changeSlide(1);
+            }
+        });
+
+        // Inicializar
+        showSlide(0);
+    </script>
 </body>
 
 </html>
