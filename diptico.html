@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Díptico Día del Medio Ambiente - 21x14cm</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Dimensiones: 21cm ancho x 14cm alto = 793.7px x 529.1px a 96 DPI */
+        .hoja {
+            width: 793.7px;
+            height: 529.1px;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border-radius: 5px;
+        }
+
+        .titulo-hoja {
+            background: #34495e;
+            color: white;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 0.85em;
+        }
+
+        /* TIRO (Cara frontal) */
+        .tiro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: calc(100% - 32px);
+        }
+
+        .portada {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portada::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -80px;
+            right: -80px;
+        }
+
+        .portada h1 {
+            font-size: 1.6em;
+            margin-bottom: 12px;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .portada .fecha {
+            font-size: 1.2em;
+            margin: 12px 0;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .animal-portada {
+            width: 140px;
+            height: 140px;
+            margin: 15px 0;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .slogan {
+            font-size: 0.95em;
+            font-style: italic;
+            margin-top: 12px;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .pagina-interior {
+            background: linear-gradient(to bottom, #ffffff 0%, #e8f5e9 100%);
+            padding: 30px 25px;
+            overflow-y: auto;
+        }
+
+        .pagina-interior h2 {
+            color: #11998e;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #38ef7d;
+            padding-bottom: 8px;
+        }
+
+        .pagina-interior h3 {
+            color: #2d6a4f;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .pagina-interior h3::before {
+            content: '🌿';
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+
+        .pagina-interior p {
+            color: #333;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            text-align: justify;
+            font-size: 0.8em;
+        }
+
+        .animales-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .animal-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            height: 90px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .animal-img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .animal-nombre {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 6px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.75em;
+        }
+
+        /* RETIRO (Cara posterior) */
+        .retiro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: calc(100% - 32px);
+            transform: scaleX(-1);
+        }
+
+        .retiro>* {
+            transform: scaleX(-1);
+        }
+
+        .lista {
+            list-style: none;
+            margin: 12px 0;
+        }
+
+        .lista li {
+            padding: 8px 8px 8px 12px;
+            margin: 8px 0;
+            background: white;
+            border-left: 3px solid #38ef7d;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 0.75em;
+            line-height: 1.4;
+        }
+
+        .lista li::before {
+            content: '✓';
+            color: #11998e;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+
+        .destacado {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+
+        .estadisticas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-numero {
+            font-size: 1.5em;
+            color: #11998e;
+            font-weight: bold;
+        }
+
+        .stat-texto {
+            font-size: 0.7em;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .contraportada {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .contraportada h2 {
+            font-size: 1.4em;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .contraportada p {
+            font-size: 0.85em;
+            line-height: 1.6;
+        }
+
+        .animal-grande {
+            width: 100%;
+            height: 180px;
+            border-radius: 12px;
+            border: 4px solid white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            margin: 12px 0;
+        }
+
+        .llamado-accion {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .llamado-accion h3 {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .llamado-accion p {
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+
+        @media print {
+            @page {
+                size: 21cm 14cm;
+                margin: 0;
+            }
+
+            body {
+                background: white;
+            }
+
+            .container {
+                gap: 0;
+            }
+
+            .hoja {
+                box-shadow: none;
+                page-break-after: always;
+                border-radius: 0;
+                width: 21cm;
+                height: 14cm;
+            }
+
+            .titulo-hoja {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- TIRO (Cara frontal) -->
+        <div class="hoja">
+            <div class="titulo-hoja">TIRO (Cara Frontal) - 21x14cm - Doblar por el centro vertical</div>
+            <div class="tiro">
+                <!-- Portada (Derecha cuando se dobla) -->
+                <div class="portada">
+                    <h1>Día Mundial del Medio Ambiente</h1>
+                    <div class="fecha">5 de Junio</div>
+                    <svg class="animal-portada" viewBox="0 0 200 200">
+                        <circle cx="100" cy="100" r="95" fill="#90EE90" />
+                        <circle cx="100" cy="80" r="60" fill="#228B22" />
+                        <ellipse cx="80" cy="70" rx="8" ry="12" fill="white" />
+                        <ellipse cx="120" cy="70" rx="8" ry="12" fill="white" />
+                        <circle cx="80" cy="70" r="4" fill="black" />
+                        <circle cx="120" cy="70" r="4" fill="black" />
+                        <path d="M 90 85 Q 100 95 110 85" stroke="black" stroke-width="3" fill="none" />
+                        <ellipse cx="60" cy="60" rx="20" ry="30" fill="#228B22" />
+                        <ellipse cx="140" cy="60" rx="20" ry="30" fill="#228B22" />
+                        <ellipse cx="100" cy="140" rx="40" ry="30" fill="#006400" />
+                        <ellipse cx="70" cy="155" rx="15" ry="25" fill="#006400" />
+                        <ellipse cx="130" cy="155" rx="15" ry="25" fill="#006400" />
+                        <circle cx="85" cy="50" r="3" fill="#FFD700" />
+                        <circle cx="110" cy="45" r="2" fill="#FFD700" />
+                        <circle cx="95" cy="40" r="2" fill="#FFD700" />
+                    </svg>
+                    <p class="slogan">"Protege la naturaleza,<br />protege la vida"</p>
+                </div>
+
+                <!-- Interior izquierda -->
+                <div class="pagina-interior">
+                    <h2>¿Qué es?</h2>
+                    <p>El Día Mundial del Medio Ambiente fue establecido por las Naciones Unidas en 1972. Es la fecha
+                        más importante para fomentar la conciencia y acción global por nuestro planeta.</p>
+
+                    <h3>Biodiversidad en peligro</h3>
+                    <p>Miles de especies animales están en riesgo debido a la destrucción de hábitats, contaminación y
+                        cambio climático.</p>
+
+                    <div class="animales-grid">
+                        <div class="animal-card">
+                            <svg class="animal-img" viewBox="0 0 200 200">
+                                <rect width="200" height="200" fill="#87CEEB" />
+                                <ellipse cx="100" cy="120" rx="60" ry="40" fill="#FF6B6B" />
+                                <ellipse cx="80" cy="110" rx="8" ry="10" fill="white" />
+                                <ellipse cx="120" cy="110" rx="8" ry="10" fill="white" />
+                                <circle cx="80" cy="110" r="4" fill="black" />
+                                <circle cx="120" cy="110" r="4" fill="black" />
+                                <ellipse cx="50" cy="100" rx="25" ry="35" fill="#FF6B6B" />
+                                <ellipse cx="150" cy="100" rx="25" ry="35" fill="#FF6B6B" />
+                                <path d="M 90 125 Q 100 135 110 125" stroke="black" stroke-width="2" fill="none" />
+                            </svg>
+                            <div class="animal-nombre">Oso Panda</div>
+                        </div>
+                        <div class="animal-card">
+                            <svg class="animal-img" viewBox="0 0 200 200">
+                                <rect width="200" height="200" fill="#4A90E2" />
+                                <ellipse cx="100" cy="100" rx="70" ry="50" fill="#4169E1" />
+                                <ellipse cx="80" cy="90" rx="8" ry="10" fill="white" />
+                                <ellipse cx="120" cy="90" rx="8" ry="10" fill="white" />
+                                <circle cx="80" cy="90" r="4" fill="black" />
+                                <circle cx="120" cy="90" r="4" fill="black" />
+                                <path d="M 90 105 Q 100 115 110 105" stroke="white" stroke-width="2" fill="none" />
+                                <path d="M 100 130 L 60 160 L 70 165 L 100 145" fill="#4169E1" />
+                                <path d="M 100 130 L 140 160 L 130 165 L 100 145" fill="#4169E1" />
+                            </svg>
+                            <div class="animal-nombre">Delfín</div>
+                        </div>
+                        <div class="animal-card">
+                            <svg class="animal-img" viewBox="0 0 200 200">
+                                <rect width="200" height="200" fill="#F4A460" />
+                                <ellipse cx="100" cy="110" rx="50" ry="45" fill="#FFA500" />
+                                <ellipse cx="80" cy="100" rx="8" ry="10" fill="white" />
+                                <ellipse cx="120" cy="100" rx="8" ry="10" fill="white" />
+                                <circle cx="80" cy="100" r="4" fill="black" />
+                                <circle cx="120" cy="100" r="4" fill="black" />
+                                <ellipse cx="50" cy="105" rx="20" ry="25" fill="#FFA500" />
+                                <ellipse cx="150" cy="105" rx="20" ry="25" fill="#FFA500" />
+                                <path d="M 100 65 L 85 50 L 90 55 Z" fill="#FFA500" />
+                                <path d="M 100 65 L 115 50 L 110 55 Z" fill="#FFA500" />
+                            </svg>
+                            <div class="animal-nombre">Tigre</div>
+                        </div>
+                        <div class="animal-card">
+                            <svg class="animal-img" viewBox="0 0 200 200">
+                                <rect width="200" height="200" fill="#20B2AA" />
+                                <ellipse cx="100" cy="120" rx="45" ry="35" fill="#3CB371" />
+                                <path d="M 100 80 Q 80 60 70 75 Q 75 85 85 90" fill="#3CB371" />
+                                <path d="M 100 80 Q 120 60 130 75 Q 125 85 115 90" fill="#3CB371" />
+                                <ellipse cx="85" cy="115" rx="6" ry="8" fill="white" />
+                                <ellipse cx="115" cy="115" rx="6" ry="8" fill="white" />
+                                <circle cx="85" cy="115" r="3" fill="black" />
+                                <circle cx="115" cy="115" r="3" fill="black" />
+                                <ellipse cx="100" cy="150" rx="35" ry="25" fill="#2E8B57" />
+                            </svg>
+                            <div class="animal-nombre">Tortuga Marina</div>
+                        </div>
+                    </div>
+
+                    <p style="font-size: 0.75em; margin-top: 10px;"><strong>Estos animales necesitan nuestra
+                            ayuda.</strong> La protección de sus hábitats es esencial para su supervivencia.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- RETIRO (Cara posterior) -->
+        <div class="hoja">
+            <div class="titulo-hoja">RETIRO (Cara Posterior) - 21x14cm - Imprimir al reverso</div>
+            <div class="retiro">
+                <!-- Interior derecha (se verá a la izquierda al doblar) -->
+                <div class="pagina-interior">
+                    <h2>Actúa Ahora</h2>
+
+                    <h3>Acciones que salvan vidas</h3>
+                    <ul class="lista">
+                        <li>Reduce el consumo de plástico para proteger océanos y animales marinos</li>
+                        <li>Ahorra agua y energía en tu hogar</li>
+                        <li>Recicla y reutiliza materiales</li>
+                        <li>Apoya la reforestación y planta árboles</li>
+                        <li>Consume productos locales y sostenibles</li>
+                        <li>Educa a otros sobre conservación</li>
+                    </ul>
+
+                    <div class="estadisticas">
+                        <div class="stat-box">
+                            <div class="stat-numero">1M+</div>
+                            <div class="stat-texto">Especies en peligro</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-numero">8M</div>
+                            <div class="stat-texto">Toneladas de plástico/año</div>
+                        </div>
+                    </div>
+
+                    <div class="destacado">
+                        "No heredamos la Tierra de nuestros ancestros, la tomamos prestada de nuestros hijos"
+                    </div>
+
+                    <p
+                        style="text-align: center; margin-top: 12px; font-weight: bold; color: #11998e; font-size: 0.9em;">
+                        ¡Cada acción cuenta! 🌍💚
+                    </p>
+                </div>
+
+                <!-- Contraportada -->
+                <div class="contraportada">
+                    <div>
+                        <h2>Juntos por un Futuro Sostenible</h2>
+                        <p>
+                            La fauna silvestre es indicador de la salud de nuestro planeta. Proteger a los animales es
+                            proteger nuestro futuro.
+                        </p>
+                    </div>
+
+                    <svg class="animal-grande" viewBox="0 0 300 200">
+                        <defs>
+                            <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#E0F6FF;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="300" height="200" fill="url(#sky)" />
+                        <circle cx="250" cy="30" r="20" fill="#FFD700" opacity="0.8" />
+                        <ellipse cx="60" cy="150" rx="20" ry="8" fill="#90EE90" />
+                        <ellipse cx="240" cy="160" rx="25" ry="10" fill="#90EE90" />
+                        <path d="M 50 120 Q 80 100 100 120 L 90 125 Q 80 110 70 125 Z" fill="#32CD32" />
+                        <path d="M 220 130 Q 240 110 260 130 L 250 135 Q 240 120 230 135 Z" fill="#32CD32" />
+
+                        <ellipse cx="150" cy="140" rx="45" ry="35" fill="#8B4513" />
+                        <ellipse cx="150" cy="120" rx="35" ry="32" fill="#A0522D" />
+                        <ellipse cx="135" cy="115" rx="8" ry="10" fill="white" />
+                        <ellipse cx="165" cy="115" rx="8" ry="10" fill="white" />
+                        <circle cx="135" cy="115" r="4" fill="black" />
+                        <circle cx="165" cy="115" r="4" fill="black" />
+                        <ellipse cx="150" cy="125" rx="4" ry="6" fill="#654321" />
+                        <path d="M 142 130 Q 150 136 158 130" stroke="#654321" stroke-width="2" fill="none" />
+
+                        <ellipse cx="115" cy="110" rx="15" ry="20" fill="#A0522D" />
+                        <ellipse cx="185" cy="110" rx="15" ry="20" fill="#A0522D" />
+
+                        <path d="M 110 95 Q 105 85 110 80" stroke="#654321" stroke-width="1.5" fill="none" />
+                        <path d="M 120 92 Q 118 82 122 77" stroke="#654321" stroke-width="1.5" fill="none" />
+                        <path d="M 190 95 Q 195 85 190 80" stroke="#654321" stroke-width="1.5" fill="none" />
+                        <path d="M 180 92 Q 182 82 178 77" stroke="#654321" stroke-width="1.5" fill="none" />
+
+                        <ellipse cx="125" cy="165" rx="18" ry="12" fill="#8B4513" />
+                        <ellipse cx="175" cy="165" rx="18" ry="12" fill="#8B4513" />
+
+                        <path d="M 80 100 Q 90 80 100 70" stroke="#228B22" stroke-width="3" fill="none" />
+                        <path d="M 220 110 Q 210 90 200 80" stroke="#228B22" stroke-width="3" fill="none" />
+                    </svg>
+
+                    <div class="llamado-accion">
+                        <h3>Comprométete</h3>
+                        <p>Comparte este mensaje y únete al movimiento global por el medio ambiente. Tu participación
+                            marca la diferencia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
