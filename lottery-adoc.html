@@ -26,7 +26,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             animation: fadeIn 1s ease-out;
         }
@@ -75,10 +75,10 @@
 
         .game-board {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
             margin-bottom: 30px;
-            max-width: 500px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -130,7 +130,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px;
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -144,11 +144,13 @@
             opacity: 1;
         }
 
-        .brand-logo {
-            width: 80%;
-            height: 80%;
-            object-fit: contain;
-            filter: brightness(1);
+        .brand-name {
+            font-size: clamp(0.8rem, 2vw, 1.1rem);
+            font-weight: 700;
+            text-align: center;
+            color: #ffd700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
 
         .controls {
@@ -255,6 +257,14 @@
             margin-bottom: 20px;
         }
 
+        .turns-info {
+            text-align: center;
+            color: #ffd700;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
         footer {
             text-align: center;
             margin-top: 40px;
@@ -302,6 +312,7 @@
 
         @media (max-width: 768px) {
             .game-board {
+                grid-template-columns: repeat(3, 1fr);
                 gap: 10px;
             }
 
@@ -312,6 +323,10 @@
             .btn {
                 padding: 15px 30px;
                 font-size: 1rem;
+            }
+
+            .brand-name {
+                font-size: 0.7rem;
             }
         }
     </style>
@@ -325,13 +340,18 @@
         </header>
 
         <div class="instructions">
-            <p>🎰 <strong>Raspa 3 tarjetas</strong> y descubre tu premio<br>
+            <p>🎰 <strong>Raspa las tarjetas</strong> y descubre tu premio<br>
                 🎁 <strong>3 marcas iguales</strong> = ¡Descuento especial!<br>
+                🎮 <strong>5 turnos disponibles</strong> para encontrar el trío ganador<br>
                 ⭐ ¡Buena suerte!</p>
         </div>
 
+        <div class="turns-info" id="turnsInfo">
+            Turnos restantes: <strong>5</strong>
+        </div>
+
         <div class="stats" id="stats">
-            Tarjetas raspadas: <strong>0/3</strong>
+            Tarjetas raspadas: <strong>0/12</strong>
         </div>
 
         <div class="game-board" id="gameBoard"></div>
@@ -351,43 +371,55 @@
 
     <script>
         const brands = [
-            { name: 'ADOC', logo: 'adoc-logo.svg' },
-            { name: 'PAR2', logo: 'par2-logo.svg' },
-            { name: 'Hush Puppies', logo: 'hush-puppies-logo.svg' },
-            { name: 'CAT', logo: 'cat-logo.svg' },
-            { name: 'The North Face', logo: 'the-north-face-logo.svg' },
-            { name: 'Merrell', logo: 'merrell-logo.svg' },
-            { name: 'Puntos ADOC', logo: 'puntos-adoc-logo.svg' }
+            { name: 'ADOC' },
+            { name: 'PAR2' },
+            { name: 'HUSH PUPPIES' },
+            { name: 'CAT' },
+            { name: 'THE NORTH FACE' },
+            { name: 'MERRELL' },
+            { name: 'PUNTOS ADOC' },
+            { name: 'COLUMBIA' },
+            { name: 'TIMBERLAND' }
         ];
 
         const prizes = {
             'ADOC': '30% de descuento en toda la tienda ADOC',
             'PAR2': '25% de descuento en calzado PAR2',
-            'Hush Puppies': '20% de descuento en Hush Puppies',
+            'HUSH PUPPIES': '20% de descuento en Hush Puppies',
             'CAT': '25% de descuento en productos CAT',
-            'The North Face': '20% de descuento en The North Face',
-            'Merrell': '25% de descuento en Merrell',
-            'Puntos ADOC': '500 Puntos ADOC gratis'
+            'THE NORTH FACE': '20% de descuento en The North Face',
+            'MERRELL': '25% de descuento en Merrell',
+            'PUNTOS ADOC': '500 Puntos ADOC gratis',
+            'COLUMBIA': '20% de descuento en Columbia',
+            'TIMBERLAND': '25% de descuento en Timberland'
         };
 
         let selectedBrands = [];
         let scratchedCount = 0;
+        let turnsRemaining = 5;
         let gameStarted = false;
 
         function startGame() {
             gameStarted = true;
             scratchedCount = 0;
+            turnsRemaining = 5;
             selectedBrands = [];
 
-            // Seleccionar aleatoriamente 3 marcas
-            const shuffled = [...brands].sort(() => Math.random() - 0.5);
-
-            // 30% de probabilidad de ganar (3 iguales)
-            if (Math.random() < 0.3) {
-                const winningBrand = shuffled[0];
+            // Crear 12 tarjetas con mayor probabilidad de tríos (50%)
+            if (Math.random() < 0.5) {
+                // Ganador: garantizar un trío
+                const winningBrand = brands[Math.floor(Math.random() * brands.length)];
                 selectedBrands = [winningBrand, winningBrand, winningBrand];
+
+                // Llenar las demás con marcas aleatorias
+                while (selectedBrands.length < 12) {
+                    selectedBrands.push(brands[Math.floor(Math.random() * brands.length)]);
+                }
             } else {
-                selectedBrands = shuffled.slice(0, 3);
+                // No ganador: sin tríos completos
+                for (let i = 0; i < 12; i++) {
+                    selectedBrands.push(brands[Math.floor(Math.random() * brands.length)]);
+                }
             }
 
             // Mezclar las posiciones
@@ -397,6 +429,7 @@
             document.getElementById('playBtn').style.display = 'none';
             document.getElementById('result').classList.remove('show');
             updateStats();
+            updateTurns();
         }
 
         function renderBoard() {
@@ -409,8 +442,7 @@
                 card.innerHTML = `
                     <div class="card-back">?</div>
                     <div class="card-front">
-                        <img src="${brand.logo}" alt="${brand.name}" class="brand-logo"
-                             onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'color:#fff;font-size:1rem;text-align:center;padding:10px;\'>${brand.name}</div>'">
+                        <div class="brand-name">${brand.name}</div>
                     </div>
                 `;
                 card.onclick = () => scratchCard(card, index);
@@ -425,45 +457,80 @@
             scratchedCount++;
             updateStats();
 
-            if (scratchedCount === 3) {
-                setTimeout(checkResult, 800);
+            // Revisar resultado después de cada raspada
+            setTimeout(() => {
+                const result = checkResult();
+                if (result) {
+                    gameStarted = false;
+                }
+            }, 500);
+
+            // Actualizar turnos cada 3 tarjetas
+            if (scratchedCount % 3 === 0 && scratchedCount > 0) {
+                turnsRemaining--;
+                updateTurns();
+
+                if (turnsRemaining === 0 && !checkResult()) {
+                    setTimeout(() => {
+                        gameStarted = false;
+                        showNoWinMessage();
+                    }, 800);
+                }
             }
         }
 
         function updateStats() {
             document.getElementById('stats').innerHTML =
-                `Tarjetas raspadas: <strong>${scratchedCount}/3</strong>`;
+                `Tarjetas raspadas: <strong>${scratchedCount}/12</strong>`;
+        }
+
+        function updateTurns() {
+            document.getElementById('turnsInfo').innerHTML =
+                `Turnos restantes: <strong>${turnsRemaining}</strong>`;
         }
 
         function checkResult() {
-            const brand1 = selectedBrands[0].name;
-            const brand2 = selectedBrands[1].name;
-            const brand3 = selectedBrands[2].name;
+            const scratchedCards = Array.from(document.querySelectorAll('.scratch-card.scratched'));
+            const scratchedBrands = scratchedCards.map((card, idx) => {
+                const index = Array.from(document.querySelectorAll('.scratch-card')).indexOf(card);
+                return selectedBrands[index].name;
+            });
+
+            // Contar ocurrencias de cada marca
+            const brandCounts = {};
+            scratchedBrands.forEach(brand => {
+                brandCounts[brand] = (brandCounts[brand] || 0) + 1;
+            });
+
+            // Buscar si hay 3 o más de la misma marca
+            const winningBrand = Object.keys(brandCounts).find(brand => brandCounts[brand] >= 3);
 
             const resultDiv = document.getElementById('result');
-            const isWinner = brand1 === brand2 && brand2 === brand3;
 
-            if (isWinner) {
-                const winningBrand = brand1;
+            if (winningBrand) {
                 const prize = prizes[winningBrand];
                 const code = generateCode();
 
                 resultDiv.className = 'result winner show';
                 resultDiv.innerHTML = `
                     <h2>🎉 ¡FELICIDADES! 🎉</h2>
-                    <p>Has ganado:<br><strong>${prize}</strong></p>
+                    <p>Has encontrado 3 <strong>${winningBrand}</strong><br>Has ganado:<br><strong>${prize}</strong></p>
                     <div class="prize-code">${code}</div>
                     <p style="font-size: 0.9rem; color: #aaa;">Presenta este código en cualquier tienda ADOC</p>
                 `;
-            } else {
+                document.getElementById('resetBtn').style.display = 'block';
+                return true;
+            } else if (turnsRemaining === 0) {
                 resultDiv.className = 'result loser show';
                 resultDiv.innerHTML = `
                     <h2>¡Casi!</h2>
-                    <p>No obtuviste 3 marcas iguales esta vez.<br>¡Intenta de nuevo y gana increíbles descuentos!</p>
+                    <p>No obtuviste 3 marcas iguales en esta partida.<br>¡Intenta de nuevo y gana increíbles descuentos!</p>
                 `;
+                document.getElementById('resetBtn').style.display = 'block';
+                return true;
             }
 
-            document.getElementById('resetBtn').style.display = 'block';
+            return false;
         }
 
         function generateCode() {
@@ -478,13 +545,15 @@
         function resetGame() {
             gameStarted = false;
             scratchedCount = 0;
+            turnsRemaining = 5;
             selectedBrands = [];
 
             document.getElementById('gameBoard').innerHTML = '';
             document.getElementById('playBtn').style.display = 'block';
             document.getElementById('resetBtn').style.display = 'none';
             document.getElementById('result').classList.remove('show');
-            document.getElementById('stats').innerHTML = 'Tarjetas raspadas: <strong>0/3</strong>';
+            document.getElementById('stats').innerHTML = 'Tarjetas raspadas: <strong>0/12</strong>';
+            document.getElementById('turnsInfo').innerHTML = 'Turnos restantes: <strong>5</strong>';
         }
     </script>
 </body>
