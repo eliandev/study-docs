@@ -88,6 +88,50 @@
             opacity: 0.9;
         }
 
+        .slide-portada .presentado-por {
+            margin-top: 20px;
+            font-size: 1.1em;
+            opacity: 0.9;
+            background-color: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            list-style: none;
+            margin-bottom: 1em;
+        }
+
+        .slide-portada .presentado-por li {
+            margin: 5px 0;
+            font-size: 1.1em;
+        }
+
+        .slide-portada .carnet {
+            font-size: 0.9em;
+            opacity: 1;
+            margin-left: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .slide-portada .copy {
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-left: 10px;
+            transition: background 0.3s ease;
+        }
+
         /* Slide empresa */
         .slide-empresa {
             background: linear-gradient(to bottom right, #f8f9fa 0%, #e9ecef 100%);
@@ -461,6 +505,19 @@
             <div class="company-info">
                 <strong>Almacenes Nuvora S.A. de C.V.</strong>
             </div>
+
+            <div>
+                <p style="margin-top: 30px; font-size: 1.2em;">
+                    Presentado por:
+                <ul class="presentado-por list">
+                    <li>Geordy Elian Reyes Mendoza <span class="carnet">RM2020409 <button class="copy"
+                                onclick="copyText('RM2020409')">Copiar</button></span></li>
+                    <li>Pamella Stephanie Garcia Duran <span class="carnet">GD202405<button class="copy"
+                                onclick="copyText('GD202405')">Copiar</button></span></li>
+                </ul>
+                Fecha: <strong>Noviembre, 19 2025</strong>
+                </p>
+            </div>
         </div>
 
         <!-- Slide 2: Presentación de la empresa -->
@@ -816,6 +873,12 @@
         <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
     </div>
 
+    <!-- Alerta de Texto Copiado -->
+    <div id="copyAlert"
+        style="display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background-color:#333; color:white; padding:10px 20px; border-radius:5px; z-index:1000;">
+        Texto copiado al portapapeles !
+    </div>
+
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
@@ -854,6 +917,29 @@
                 changeSlide(1);
             }
         });
+
+        // Función para copiar texto al portapapeles
+        function copyText(text) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand
+                ('copy');
+            document.body.removeChild(tempInput);
+            showCopyAlert();
+        }
+
+        // Mostrar alerta de texto copiado
+        function showCopyAlert() {
+            const copyAlert = document.getElementById('copyAlert');
+            copyAlert.style.display
+                = 'block';
+            setTimeout(() => {
+                copyAlert.style.display = 'none';
+            }, 2000);
+        }
+
 
         // Inicializar
         showSlide(0);
