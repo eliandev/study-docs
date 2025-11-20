@@ -393,7 +393,54 @@
         let turnsRemaining = 5;
         let gameStarted = false;
 
+        // Verificar si el usuario ya jugó
+        function checkIfAlreadyPlayed() {
+            const hasPlayed = sessionStorage.getItem('adoc_lottery_played');
+            if (hasPlayed) {
+                const playData = JSON.parse(hasPlayed);
+                showAlreadyPlayedMessage(playData);
+                return true;
+            }
+            return false;
+        }
+
+        function showAlreadyPlayedMessage(playData) {
+            document.getElementById('playBtn').style.display = 'none';
+            const resultDiv = document.getElementById('result');
+
+            if (playData.won) {
+                resultDiv.className = 'result winner show';
+                resultDiv.innerHTML = `
+                    <h2>Ya has jugado</h2>
+                    <p>Ya participaste en la lotería y ganaste:<br><strong>${playData.prize}</strong></p>
+                    <div class="prize-code">${playData.code}</div>
+                    <p style="font-size: 0.9rem; color: #aaa;">Presenta este código en cualquier tienda ADOC</p>
+                `;
+            } else {
+                resultDiv.className = 'result loser show';
+                resultDiv.innerHTML = `
+                    <h2>Ya has jugado</h2>
+                    <p>Ya participaste en la lotería Black Friday.<br>Solo se permite un intento por usuario.</p>
+                `;
+            }
+        }
+
+        function saveGameResult(won, winningBrand = null, code = null) {
+            const gameData = {
+                played: true,
+                won: won,
+                prize: won ? prizes[winningBrand] : null,
+                code: code,
+                timestamp: new Date().toISOString()
+            };
+            sessionStorage.setItem('adoc_lottery_played', JSON.stringify(gameData));
+        }
+
         function startGame() {
+            if (checkIfAlreadyPlayed()) {
+                return;
+            }
+
             gameStarted = true;
             scratchedCount = 0;
             turnsRemaining = 5;
@@ -504,6 +551,9 @@
                 const prize = prizes[winningBrand];
                 const code = generateCode();
 
+                // Guardar resultado en sessionStorage
+                saveGameResult(true, winningBrand, code);
+
                 resultDiv.className = 'result winner show';
                 resultDiv.innerHTML = `
                     <h2>🎉 ¡FELICIDADES! 🎉</h2>
@@ -511,7 +561,7 @@
                     <div class="prize-code">${code}</div>
                     <p style="font-size: 0.9rem; color: #aaa;">Presenta este código en cualquier tienda ADOC</p>
                 `;
-                document.getElementById('resetBtn').style.display = 'block';
+                document.getElementById('resetBtn').style.display = 'none';
                 return true;
             }
 
@@ -519,13 +569,16 @@
         }
 
         function showNoWinMessage() {
+            // Guardar resultado en sessionStorage
+            saveGameResult(false);
+
             const resultDiv = document.getElementById('result');
             resultDiv.className = 'result loser show';
             resultDiv.innerHTML = `
                 <h2>¡Casi!</h2>
-                <p>No obtuviste 3 marcas iguales en esta partida.<br>¡Intenta de nuevo y gana increíbles descuentos!</p>
+                <p>No obtuviste 3 marcas iguales en esta partida.<br>Gracias por participar en nuestro Black Friday.</p>
             `;
-            document.getElementById('resetBtn').style.display = 'block';
+            document.getElementById('resetBtn').style.display = 'none';
         }
 
         function generateCode() {
@@ -538,6 +591,11 @@
         }
 
         function resetGame() {
+            // No permitir resetear si ya jugó
+            if (sessionStorage.getItem('adoc_lottery_played')) {
+                return;
+            }
+
             gameStarted = false;
             scratchedCount = 0;
             turnsRemaining = 5;
@@ -550,6 +608,11 @@
             document.getElementById('stats').innerHTML = 'Tarjetas raspadas: <strong>0/12</strong>';
             document.getElementById('turnsInfo').innerHTML = 'Turnos restantes: <strong>5</strong>';
         }
+
+        // Verificar al cargar la página
+        window.addEventListener('load', function () {
+            checkIfAlreadyPlayed();
+        });
     </script>
 </body>
 
