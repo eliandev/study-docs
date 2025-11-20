@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADOC - Nuestras Marcas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            animation: fadeIn 1s ease-out;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #fff, #888, #fff);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s infinite;
+        }
+
+        .tagline {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 0 auto;
+        }
+
+        .brand-card {
+            aspect-ratio: 1;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        .brand-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .brand-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .brand-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .brand-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .brand-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .brand-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .brand-card:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+
+        .brand-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #444;
+            background: #111;
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1);
+        }
+
+        .brand-card:hover::before {
+            opacity: 1;
+        }
+
+        .brand-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(1);
+            transition: all 0.4s;
+        }
+
+        .brand-card:hover .brand-logo {
+            filter: brightness(1.2) drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding: 20px;
+            color: #555;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .brands-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 20px;
+            }
+
+            .brand-card {
+                padding: 25px;
+            }
+
+            header {
+                margin-bottom: 40px;
+            }
+
+            footer {
+                margin-top: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>
+
+            </h1>
+            <p class="tagline">Nuestras Marcas</p>
+        </header>
+
+        <div class="brands-grid">
+            <div class="brand-card">
+                <!-- Reemplaza el src con tu logo SVG -->
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='24' font-family='Arial'%3EMARCA 1%3C/text%3E%3C/svg%3E"
+                    alt="Marca 1" class="brand-logo">
+            </div>
+
+            <div class="brand-card">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='24' font-family='Arial'%3EMARCA 2%3C/text%3E%3C/svg%3E"
+                    alt="Marca 2" class="brand-logo">
+            </div>
+
+            <div class="brand-card">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='24' font-family='Arial'%3EMARCA 3%3C/text%3E%3C/svg%3E"
+                    alt="Marca 3" class="brand-logo">
+            </div>
+
+            <div class="brand-card">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='24' font-family='Arial'%3EMARCA 4%3C/text%3E%3C/svg%3E"
+                    alt="Marca 4" class="brand-logo">
+            </div>
+
+            <div class="brand-card">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='24' font-family='Arial'%3EMARCA 5%3C/text%3E%3C/svg%3E"
+                    alt="Marca 5" class="brand-logo">
+            </div>
+
+            <div class="brand-card">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='24' font-family='Arial'%3EMARCA 6%3C/text%3E%3C/svg%3E"
+                    alt="Marca 6" class="brand-logo">
+            </div>
+
+            <div class="brand-card">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='24' font-family='Arial'%3EMARCA 7%3C/text%3E%3C/svg%3E"
+                    alt="Marca 7" class="brand-logo">
+            </div>
+        </div>
+
+        <footer>
+            PASOS QUE INSPIRAN 2025 © ADOC
+        </footer>
+    </div>
+</body>
+
+</html>
