@@ -372,26 +372,20 @@
     <script>
         const brands = [
             { name: 'ADOC' },
-            { name: 'PAR2' },
-            { name: 'HUSH PUPPIES' },
-            { name: 'CAT' },
             { name: 'THE NORTH FACE' },
             { name: 'MERRELL' },
-            { name: 'PUNTOS ADOC' },
-            { name: 'COLUMBIA' },
-            { name: 'TIMBERLAND' }
+            { name: 'PAR2' },
+            { name: 'HUSH PUPPIES' },
+            { name: 'PUNTOS ADOC' }
         ];
 
         const prizes = {
             'ADOC': '30% de descuento en toda la tienda ADOC',
-            'PAR2': '25% de descuento en calzado PAR2',
-            'HUSH PUPPIES': '20% de descuento en Hush Puppies',
-            'CAT': '25% de descuento en productos CAT',
             'THE NORTH FACE': '20% de descuento en The North Face',
             'MERRELL': '25% de descuento en Merrell',
-            'PUNTOS ADOC': '500 Puntos ADOC gratis',
-            'COLUMBIA': '20% de descuento en Columbia',
-            'TIMBERLAND': '25% de descuento en Timberland'
+            'PAR2': '25% de descuento en calzado PAR2',
+            'HUSH PUPPIES': '20% de descuento en Hush Puppies',
+            'PUNTOS ADOC': '500 Puntos ADOC gratis'
         };
 
         let selectedBrands = [];
@@ -505,9 +499,8 @@
             // Buscar si hay 3 o más de la misma marca
             const winningBrand = Object.keys(brandCounts).find(brand => brandCounts[brand] >= 3);
 
-            const resultDiv = document.getElementById('result');
-
             if (winningBrand) {
+                const resultDiv = document.getElementById('result');
                 const prize = prizes[winningBrand];
                 const code = generateCode();
 
@@ -520,17 +513,19 @@
                 `;
                 document.getElementById('resetBtn').style.display = 'block';
                 return true;
-            } else if (turnsRemaining === 0) {
-                resultDiv.className = 'result loser show';
-                resultDiv.innerHTML = `
-                    <h2>¡Casi!</h2>
-                    <p>No obtuviste 3 marcas iguales en esta partida.<br>¡Intenta de nuevo y gana increíbles descuentos!</p>
-                `;
-                document.getElementById('resetBtn').style.display = 'block';
-                return true;
             }
 
             return false;
+        }
+
+        function showNoWinMessage() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = 'result loser show';
+            resultDiv.innerHTML = `
+                <h2>¡Casi!</h2>
+                <p>No obtuviste 3 marcas iguales en esta partida.<br>¡Intenta de nuevo y gana increíbles descuentos!</p>
+            `;
+            document.getElementById('resetBtn').style.display = 'block';
         }
 
         function generateCode() {
